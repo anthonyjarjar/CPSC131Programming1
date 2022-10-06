@@ -107,7 +107,7 @@ std::size_t GroceryList::find( const GroceryItem & groceryItem ) const
   int results;
 
 
-  int FindItem(std::vector<std::string>g , std::string GroceryItem){
+  int FindItem(std::vector<std::string>g, std::string GroceryItem){
     std::vector<std::string>::iterator it;
     
     it = find(_gList_vector.begin() , _gList_vector.end() , GroceryItem); 
@@ -326,6 +326,12 @@ void GroceryList::remove( std::size_t offsetFromTop )
       /// std::move() will be helpful, or write your own loop.  Also remember that you must keep track of the number of valid grocery items
       /// in your array, so don't forget to adjust _gList_array_size.
 
+      for(int i = size(); i < _gList_array_size - 1; i++){
+          _gList_array[i] = _gList_array[i+1];
+      }
+    
+      _gList_array_size--;
+
     /////////////////////// END-TO-DO (8) ////////////////////////////
   } // Part 1 - Remove from array
 
@@ -342,6 +348,19 @@ void GroceryList::remove( std::size_t offsetFromTop )
       ///
       /// Behind the scenes, std::vector::erase() shifts to the left everything after the insertion point, just like you did for the
       /// array above.
+
+      auto beginItr = _gList_vector.begin();
+      std::size_t pos = 0;
+
+      while(pos != offsetFromTop){
+
+      beginItr++;
+
+      pos++;
+
+      }
+
+      _gList_vector.erase(beginItr);
 
     /////////////////////// END-TO-DO (9) ////////////////////////////
   } // Part 2 - Remove from vector
@@ -386,6 +405,13 @@ void GroceryList::moveToTop( const GroceryItem & groceryItem )
   ///////////////////////// TO-DO (12) //////////////////////////////
     /// If the grocery item exists, then remove and reinsert it.  Otherwise, do nothing.
     /// Remember, you already have functions to do all this.
+    if(find(groceryItem) == size()){
+      return;
+    }else{
+      remove(groceryItem);
+      insert(groceryItem);
+    }
+    
 
   /////////////////////// END-TO-DO (12) ////////////////////////////
 }
@@ -400,6 +426,10 @@ GroceryList & GroceryList::operator+=( const std::initializer_list<GroceryItem> 
     /// grocery list. The input type is just a container of grocery items accessible with iterators just like all the other
     /// containers.  The constructor above gives an example.  Remember to add that grocery item at the bottom of each container
     /// (array, vector, list, and forward_list) of this grocery list, and that you already have a function that does that.
+
+    for(auto p = rhs.begin(); p != rhs.end(); ++p){
+        insert(*p, Position::BOTTOM);
+    }
 
   /////////////////////// END-TO-DO (13) ////////////////////////////
 
@@ -420,6 +450,14 @@ GroceryList & GroceryList::operator+=( const GroceryList & rhs )
     /// that grocery item at the bottom of each container (array, vector, list, and forward_list) of this grocery list, and that you
     /// already have a function that does that.
 
+
+
+  for(auto item : rhs.begin()){
+
+    auto endIterator = this->_gList_vector.begin() + _gList_vector.size(); 
+
+    this-> insert(endIterator,item);
+  }
   /////////////////////// END-TO-DO (14) ////////////////////////////
 
   // Verify the internal grocery list state is still consistent amongst the four containers
@@ -450,7 +488,7 @@ std::weak_ordering GroceryList::operator<=>( GroceryList const & rhs ) const
 
   ///////////////////////// TO-DO (15) //////////////////////////////
     /// Find the common extent.  That is, if one list has 20 grocery items, and the other has only 13, then the common extent is 13
-    /// grocery items. We can compare only the first 13 grocery items of each list.  Find the first grocery item in the common
+    /// grocery items. We can compare only the first 13 grocery items of each list.  Find the first grocoery item in the common
     /// extent that is different using three-way comparison (e.g., gItem1 <=> gItem2  !=  0) and return the results.  If no
     /// differences were found in the common extent, then the list with the smaller size is less than the other.  In that case,
     /// return the results of three-way comparing the sizes.

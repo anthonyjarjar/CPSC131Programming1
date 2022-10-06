@@ -117,7 +117,35 @@ int main()
      /// indexed offsets.  Remove grocery items from the top, middle, and bottom.  Create, concatenate, rearrange, and compare
      /// several (more than two) lists. Have some fun with it!  The purpose is to show me you, as a GroceryList class consumer
      /// (i.e., the client) understand how to *use* the GroceryList.
+      // My high school reunion party is coming up soon, and I'm in charge of getting the food and drinks
+      // Let's start a grocery list
+      GroceryList partyList = { { "beer", "Bud Lite" },
+                                { "eggs"     },
+                                { "bread"    },
+                                { "hot dogs" }};
 
+      // Wait a minute, we're not 21!
+      partyList.remove( { "beer", "Bud Lite" } );
+
+      // I feel like hot dogs are a little more important than eggs and bread
+      partyList.moveToTop( { "hot dogs" } );
+
+      // Let's see what's on the list so far
+      std::cout << "My Grocery List" << partyList << "\n\n";
+
+      // Maybe we could add some chips
+      partyList.insert( { "potato chips", "Frito Lays" }, partyList.find( { "bread" } ) );
+
+      // It looks like my friend has some ideas
+      GroceryList friendsList = { { "potato chips", "Ruffles"    },
+                                  { "eggs"                       },
+                                  { "pretzels"                   } };
+
+      // If that list is different than mine, I should combine the two
+      if( partyList != friendsList ) partyList += friendsList;
+
+      // Looks good to me!
+      std::cout << "My Grocery List" << partyList << "\n\n";
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
 

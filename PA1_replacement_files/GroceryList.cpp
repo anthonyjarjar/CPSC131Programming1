@@ -450,13 +450,11 @@ GroceryList & GroceryList::operator+=( const GroceryList & rhs )
     /// that grocery item at the bottom of each container (array, vector, list, and forward_list) of this grocery list, and that you
     /// already have a function that does that.
 
-
-
   for(auto item : rhs.begin()){
 
     auto endIterator = this->_gList_vector.begin() + _gList_vector.size(); 
 
-    this-> insert(endIterator,item);
+    this->insert(endIterator,item);
   }
   /////////////////////// END-TO-DO (14) ////////////////////////////
 
@@ -574,6 +572,21 @@ std::size_t GroceryList::gList_sll_size() const
     /// Some implementations of a singly linked list maintain the size (number of elements in the list).  std::forward_list does
     /// not. The size of singly linked list must be calculated on demand by walking the list from beginning to end counting the
     /// number of elements visited.  The STL's std::distance() function does that, or you can write your own loop.
+
+  auto iterator = <list>.begin() 
+
+  auto endIterator = <list>.end() 
+
+  std::size_t size = 0;
+
+  while(iterator != endIterator){
+    size++;
+
+    iterator = iterator->next;
+  }
+
+  return size + 1;
+
 
   /////////////////////// END-TO-DO (17) ////////////////////////////
 }
